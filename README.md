@@ -1,6 +1,6 @@
-# ssl-demo
+# gittuf-delegation
 
-Demo integrating gittuf, SBOMit, and RSTUF
+Part of a demo integrating gittuf, SBOMit, and RSTUF
 
 ## Demo steps
 
@@ -41,8 +41,12 @@ A virtual Python enviroment is recommended
 pip install -r requirements.txt
 ```
 
-## Running the demo
+## Running the setup
+
+Setup is intended to be run once to setup this gittuf repository with
+delegation so that it can be used in other demos. At the moment this demo runs
+all operations in a temporary folder.
 
 ``` sh
-python run-demo.py
+python run-setup.py
 ```

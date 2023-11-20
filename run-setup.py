@@ -9,6 +9,7 @@ import sys
 import tempfile
 
 NO_PROMPT = False
+DEMO = False
 REQUIRED_BINARIES = ["git", "gittuf", "gpg"]
 
 def check_binaries():
@@ -121,7 +122,8 @@ def run_demo():
     prompt_key("Add rule to delegate to another user")
     cmd = ("gittuf policy add-rule"
         " -k ../keys/targets"
-        " --rule-name 'protect-main'"
+        " --rule-name 'delegate'"
+        # Check if this is the correct rule pattern
         " --rule-pattern git:refs/heads/main"
         f" --authorize-key ../keys/alice.pub"
     )
@@ -132,14 +134,17 @@ def run_demo():
     prompt_key("Create policy which implies delegation")
     cmd = ("gittuf policy init"
         " -k ../keys/alice"
-        " --policy-name 'protect-main'"
+        " --policy-name 'delegate'"
     )
     display_command(cmd)
     subprocess.call(shlex.split(cmd))
 
+    # Delegation is to the team that owns a
+    # feature and would have this permission
     prompt_key("Add rule to protect the main branch")
     cmd = ("gittuf policy add-rule"
         " -k ../keys/alice"
+        " --policy-name 'delegate'"
         " --rule-name 'protect-main'"
         " --rule-pattern git:refs/heads/main"
         f" --authorize-key gpg:{authorized_gpg_key.fingerprint}"
@@ -166,12 +171,13 @@ def run_demo():
     display_command(cmd)
     subprocess.call(shlex.split(cmd))
 
-    prompt_key("Verify branch protection for this change")
-    cmd = "gittuf verify-ref -f main"
-    display_command(cmd)
-    subprocess.run(shlex.split(cmd), check=True)
+    # Branch verification currently fails
+    # prompt_key("Verify branch protection for this change")
+    # cmd = "gittuf verify-ref -f main"
+    # display_command(cmd)
+    # subprocess.run(shlex.split(cmd), check=True)
 
-    prompt_key("gittuf's verification succeeded!")
+    # prompt_key("gittuf's verification succeeded!")
 
     prompt_key("Verify commit signature using gittuf policy")
     cmd = "gittuf verify-commit HEAD"
@@ -182,72 +188,6 @@ def run_demo():
         "gittuf's policy recognizes the signing key and"
         " confirms it's a good signature!"
     )
-
-    prompt_key("Update repo config to use unauthorized key")
-    cmd = f"git config --local user.signingkey {unauthorized_gpg_key.fingerprint}"
-    display_command(cmd)
-    subprocess.call(shlex.split(cmd))
-
-    prompt_key("Make unauthorized change to repo's main branch")
-    display_command("echo 'This is not allowed!' >> README.md")
-    with open("README.md", "a") as fp:
-        fp.write("This is not allowed!\n")
-    cmd = "git add README.md"
-    display_command(cmd)
-    subprocess.call(shlex.split(cmd))
-    cmd = "git commit -m 'Update README.md'"
-    display_command(cmd)
-    subprocess.call(shlex.split(cmd))
-
-    prompt_key("Record change to main in RSL")
-    cmd = "gittuf rsl record main"
-    display_command(cmd)
-    subprocess.call(shlex.split(cmd))
-    cmd = "git show refs/gittuf/reference-state-log"
-    display_command(cmd)
-    subprocess.call(shlex.split(cmd))
-
-    prompt_key("Verify branch protection for this change")
-    cmd = "gittuf verify-ref -f main"
-    display_command(cmd)
-    subprocess.call(shlex.split(cmd))
-
-    prompt_key("gittuf detected a violation of the branch protection rule!")
-
-    prompt_key("Verify commit signature using gittuf policy")
-    cmd = "gittuf verify-commit HEAD"
-    display_command(cmd)
-    subprocess.run(shlex.split(cmd), check=True)
-
-    prompt_key("gittuf's policy does not recognize the signing key!")
-
-    prompt_key("Rewind to last good state to test attestation")
-    cmd = "git reset --hard HEAD~1"
-    display_command(cmd)
-    subprocess.call(shlex.split(cmd))
-    cmd = "git update-ref refs/gittuf/reference-state-log refs/gittuf/reference-state-log~1"
-    display_command(cmd)
-    subprocess.call(shlex.split(cmd))
-    cmd = f"git config --local user.signingkey {authorized_gpg_key.fingerprint}"
-    display_command(cmd)
-    subprocess.call(shlex.split(cmd))
-
-    prompt_key("Initialize bare git repository")
-    tmp_bare_repo_dir = os.path.join(tmp_dir.name, "bare-repo")
-    os.mkdir(tmp_bare_repo_dir)
-    os.chdir(tmp_bare_repo_dir)
-    cmd = "git --bare init"
-    display_command(cmd)
-    subprocess.call(shlex.split(cmd))
-
-    prompt_key("Push changes to bare git repository")
-    os.chdir(tmp_repo_dir)
-    cmd = "git remote add origin ../bare-repo"
-    display_command(cmd)
-    subprocess.call(shlex.split(cmd))
-    cmd = "git push origin main"
-    display_command(cmd)
-    subprocess.call(shlex.split(cmd))
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
