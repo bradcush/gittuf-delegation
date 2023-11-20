@@ -118,9 +118,28 @@ def run_demo():
     display_command(cmd)
     subprocess.call(shlex.split(cmd))
 
-    prompt_key("Add rule to protect the main branch")
+    prompt_key("Add rule to delegate to another user")
     cmd = ("gittuf policy add-rule"
         " -k ../keys/targets"
+        " --rule-name 'protect-main'"
+        " --rule-pattern git:refs/heads/main"
+        f" --authorize-key ../keys/alice.pub"
+    )
+    display_command(cmd)
+    subprocess.call(shlex.split(cmd))
+
+    # Delegation is implicit with same rule-name
+    prompt_key("Create policy which implies delegation")
+    cmd = ("gittuf policy init"
+        " -k ../keys/alice"
+        " --policy-name 'protect-main'"
+    )
+    display_command(cmd)
+    subprocess.call(shlex.split(cmd))
+
+    prompt_key("Add rule to protect the main branch")
+    cmd = ("gittuf policy add-rule"
+        " -k ../keys/alice"
         " --rule-name 'protect-main'"
         " --rule-pattern git:refs/heads/main"
         f" --authorize-key gpg:{authorized_gpg_key.fingerprint}"
