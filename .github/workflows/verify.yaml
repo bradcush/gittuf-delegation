@@ -1,0 +1,19 @@
+name: verify
+on:
+  push:
+    branches:
+      - main
+jobs:
+  gittuf-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: gittuf/gittuf-installer@74bc31fb990a714302c6cf75f91cccdaf33961bc
+        with:
+          gittuf-version: '0.1.0'
+      - run: |
+          # Temporarily testing verification with ourselves
+          gittuf clone https://github.com/${{ github.repository }}
+          cd gittuf-delegation
+          # Verification using ref not working
+          # gittuf verify-ref -f main
+          gittuf verify-commit HEAD
