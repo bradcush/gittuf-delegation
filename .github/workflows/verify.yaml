@@ -14,6 +14,4 @@ jobs:
           # Temporarily testing verification with ourselves
           gittuf clone https://github.com/${{ github.repository }}
           cd gittuf-delegation
-          # Verification using ref not working
-          # gittuf verify-ref -f main
-          gittuf verify-commit HEAD
+          gittuf verify-ref -f main

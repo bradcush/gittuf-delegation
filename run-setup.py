@@ -171,13 +171,12 @@ def run_demo():
     display_command(cmd)
     subprocess.call(shlex.split(cmd))
 
-    # Branch verification currently fails
-    # prompt_key("Verify branch protection for this change")
-    # cmd = "gittuf verify-ref -f main"
-    # display_command(cmd)
-    # subprocess.run(shlex.split(cmd), check=True)
+    prompt_key("Verify branch protection for this change")
+    cmd = "gittuf verify-ref -f main"
+    display_command(cmd)
+    subprocess.run(shlex.split(cmd), check=True)
 
-    # prompt_key("gittuf's verification succeeded!")
+    prompt_key("gittuf's verification succeeded!")
 
     prompt_key("Verify commit signature using gittuf policy")
     cmd = "gittuf verify-commit HEAD"
