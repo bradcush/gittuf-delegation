@@ -44,8 +44,9 @@ pip install -r requirements.txt
 ## Running the setup
 
 Setup is intended to be run once to setup this gittuf repository with
-delegation so that it can be used in other demos. At the moment this demo runs
-all operations in a temporary folder.
+delegation so that it can be used in other demos. This script has been kept for
+reference on how this repository was setup. All keys have been made public and
+included with the repository except for the gpg key used for signing.
 
 ``` sh
 python run-setup.py
