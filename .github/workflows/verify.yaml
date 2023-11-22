@@ -7,9 +7,12 @@ jobs:
   gittuf-verify:
     runs-on: ubuntu-latest
     steps:
-      - uses: gittuf/gittuf-installer@74bc31fb990a714302c6cf75f91cccdaf33961bc
+      - uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe
         with:
-          gittuf-version: '0.1.0'
+          go-version: '1.21'
+      - uses: gittuf/gittuf-installer@main
+        with:
+          gittuf-version: 'main'
       - run: |
           # Temporarily testing verification with ourselves
           gittuf clone https://github.com/${{ github.repository }}
