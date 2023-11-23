@@ -2,37 +2,13 @@
 
 Part of a demo integrating gittuf, SBOMit, and RSTUF
 
-## Demo steps
-
-- [x] Create a new temporary repository
-- [x] Delegate permission for branch updates on main
-- [ ] Update a binary changing content of output
-- [ ] Commit the change by the delegated user
-- [ ] Initialize a temporary bare repository
-- [ ] Link our local repository to the bare repository
-- [ ] Create in-toto policy metadata by Alice
-- [ ] Clone repository to prepare for change by Bob
-- [ ] Make change and create in-toto metadata for Bob
-- [ ] Push metadata to locally running RSTUF server
-- [ ] Client downloads in-toto metadata from RSTUF server
-- [ ] Client checks out code from temporary repository
-- [ ] Verify product on the client after downloading
-
-### Not handled yet
-
-- Using README.md instead of binary
-- Anything to do with SBOMMit
-- Anything to do with RSTUF
-
 ## Environment
 
 A virtual Python enviroment is recommended
 
 ## Requirements
 
-- gittuf
-- protobomit
-- RSTUF
+[gittuf](https://github.com/gittuf/gittuf)
 
 ## Install
 
@@ -51,3 +27,13 @@ included with the repository except for the gpg key used for signing.
 ``` sh
 python run-setup.py
 ```
+
+## Dummy binary
+
+This demo provides Golang code for building a binary with some basic
+dependencies. Other repositories are expected to build this binary along with
+an SBOM that reflects these dependencies.
+
+## Workflows
+
+This repository uses [gittuf-installer](https://github.com/gittuf/gittuf-installer)
