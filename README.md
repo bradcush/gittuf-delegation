@@ -28,6 +28,15 @@ included with the repository except for the gpg key used for signing.
 python run-setup.py
 ```
 
+## Post commit steps
+
+``` sh
+gittuf rsl record main
+git show refs/gittuf/reference-state-log
+gittuf verify-ref -f main
+gittuf rsl remote push origin
+```
+
 ## Dummy binary
 
 This demo provides Golang code for building a binary with some basic
