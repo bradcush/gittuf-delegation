@@ -1,6 +1,6 @@
 .PHONY: build
 build:
 	@gittuf verify-ref -f main
-	# Build and SBOM in same step
 	@go build hello.go
-	@spdx-sbom-generator
+		# Generate CycloneDX SBOM file in JSON format
+	@cyclonedx-gomod app -json -output bom-go-mod.json .

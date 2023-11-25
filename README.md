@@ -8,7 +8,10 @@ A virtual Python enviroment is recommended
 
 ## Requirements
 
-[gittuf](https://github.com/gittuf/gittuf)
+- [gittuf](https://github.com/gittuf/gittuf)
+- [cyclonedx-gomod](https://github.com/CycloneDX/cyclonedx-gomod)
+- [Python](https://www.python.org/downloads/)
+- [Go](https://go.dev/)
 
 ## Install
 
@@ -29,6 +32,8 @@ python run-setup.py
 ```
 
 ## Post commit steps
+
+Avoid using rewritting commits
 
 ``` sh
 gittuf rsl record main
