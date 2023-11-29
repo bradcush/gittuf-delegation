@@ -48,6 +48,12 @@ This demo provides Golang code for building a binary with some basic
 dependencies. Other repositories are expected to build this binary along with
 an SBOM that reflects these dependencies.
 
+## Generate sbom
+
+``` sh
+make sbom
+```
+
 ## Workflows
 
 This repository uses [gittuf-installer](https://github.com/gittuf/gittuf-installer)

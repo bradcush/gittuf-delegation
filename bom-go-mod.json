@@ -1,0 +1,110 @@
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.4",
+  "serialNumber": "urn:uuid:c9e90ba5-cc70-48ec-a31f-c7a93b19e51b",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2023-11-29T15:45:34-05:00",
+    "tools": [
+      {
+        "vendor": "CycloneDX",
+        "name": "cyclonedx-gomod",
+        "version": "v1.4.1",
+        "hashes": [
+          {
+            "alg": "MD5",
+            "content": "18bd8c2345bc9df32c6acf13ceec3151"
+          },
+          {
+            "alg": "SHA-1",
+            "content": "88212c7443298f8773ee108fa3d73bf074d7f014"
+          },
+          {
+            "alg": "SHA-256",
+            "content": "93091f9d64b2cf5da4ab610bbbd0fccfeaea625f414ae1083a17569d128a495e"
+          },
+          {
+            "alg": "SHA-384",
+            "content": "6a73c282686e08034413e17eaee88e4dd15fca6027341c0b72af4e037582d7a9191d49268456ca91ba40b11ae3174a91"
+          },
+          {
+            "alg": "SHA-512",
+            "content": "368be858f77f03bf3ba3fec8a1e375bf3898fc4c64d676df97ae7e97e0ec163ac38c8208ac3a9f4b04685587f64b5f0181036cc41dc815eaef3667add6ca98e4"
+          }
+        ],
+        "externalReferences": [
+          {
+            "url": "https://github.com/CycloneDX/cyclonedx-gomod",
+            "type": "vcs"
+          },
+          {
+            "url": "https://cyclonedx.org",
+            "type": "website"
+          }
+        ]
+      }
+    ],
+    "component": {
+      "bom-ref": "pkg:golang/github.com/bradcush/gittuf-delegation@v0.0.0-20231125000923-b27d497acf75?type=module",
+      "type": "application",
+      "name": "github.com/bradcush/gittuf-delegation",
+      "version": "v0.0.0-20231125000923-b27d497acf75",
+      "purl": "pkg:golang/github.com/bradcush/gittuf-delegation@v0.0.0-20231125000923-b27d497acf75?type=module\u0026goos=darwin\u0026goarch=arm64",
+      "externalReferences": [
+        {
+          "url": "https://github.com/bradcush/gittuf-delegation",
+          "type": "vcs"
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:gomod:build:env:CGO_ENABLED",
+          "value": "1"
+        },
+        {
+          "name": "cdx:gomod:build:env:GOARCH",
+          "value": "arm64"
+        },
+        {
+          "name": "cdx:gomod:build:env:GOOS",
+          "value": "darwin"
+        },
+        {
+          "name": "cdx:gomod:build:env:GOVERSION",
+          "value": "go1.21.4"
+        }
+      ]
+    }
+  },
+  "components": [
+    {
+      "bom-ref": "pkg:golang/github.com/google/uuid@v1.4.0?type=module",
+      "type": "library",
+      "name": "github.com/google/uuid",
+      "version": "v1.4.0",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "32d331b1ae75febf72ca19322ec55e56dd01f81190673a5089343878767c6dce"
+        }
+      ],
+      "purl": "pkg:golang/github.com/google/uuid@v1.4.0?type=module\u0026goos=darwin\u0026goarch=arm64",
+      "externalReferences": [
+        {
+          "url": "https://github.com/google/uuid",
+          "type": "vcs"
+        }
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "pkg:golang/github.com/bradcush/gittuf-delegation@v0.0.0-20231125000923-b27d497acf75?type=module"
+    },
+    {
+      "ref": "pkg:golang/github.com/google/uuid@v1.4.0?type=module"
+    }
+  ]
+}
